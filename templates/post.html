@@ -1,36 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-    <body>
-        <!-- Navigation-->
-        {% include "header.html" %}
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url({{ url_for('static', filename='assets/img/' ~ post_body.id ~ '.jpg') }})">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="post-heading">
-                            <h1>{{ post_body.title }}</h1>
-                            <h2 class="subheading">{{ post_body.subtitle }}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- Post Content-->
-        <article class="mb-4">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p>{{ post_body.body }}</p>
-                        <p>
-                            Images by
-                            <a href="https://www.magnific.com/">MAGNIFIC</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </article>
-        <!-- Footer-->
-        {% include "footer.html" %}
-    </body>
-</html>
+{% include "header.html" %}
+
+{# Post Header featuring dynamic background image #}
+<header class="masthead" style="background-image: url('{{post.img_url}}')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="post-heading">
+          <h1>{{ post.title }}</h1>
+          <h2 class="subheading">{{ post.subtitle }}</h2>
+          <span class="meta">Posted by <a href="#">{{ post.author }}</a> on {{ post.date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{# Main Article Body #}
+<article>
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+
+        {{ post.body|safe }}
+
+        {# Action Buttons Layout #}
+        <div class="d-flex justify-content-between mb-4 mt-5">
+
+          {# Back Button (Left aligned) #}
+          <a class="btn btn-secondary text-uppercase" href="{{ url_for('home') }}">
+              ← Back to all posts
+          </a>
+
+          {# Edit/Delete Buttons (Right aligned) #}
+          <div class="d-flex">
+              <a class="btn btn-primary text-uppercase me-3" href="{{ url_for('edit_post', post_id=post.id) }}">
+                  Edit Post
+              </a>
+              <a class="btn btn-danger text-uppercase" href="{{ url_for('delete_post', post_id=post.id) }}">
+                  Delete Post
+              </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</article>
+
+{% include "footer.html" %}

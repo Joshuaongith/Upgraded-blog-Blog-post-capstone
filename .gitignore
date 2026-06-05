@@ -1,0 +1,18 @@
+# Security & Environments
+.env
+venv/
+env/
+
+# Local Database (Never commit your live database!)
+posts.db
+instance/
+
+# Python Caches
+__pycache__/
+*.pyc
+*.pyo
+
+# OS & IDE Files
+.DS_Store
+.vscode/
+.idea/
