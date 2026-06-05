@@ -1,4 +1,4 @@
-```markdown
+
 # 🚀 Full-Stack Flask Blog
 
 A robust, fully functional personal portfolio and blog application built with Python and Flask. This project features a complete CRUD (Create, Read, Update, Delete) content management system, secure rich-text formatting, and a dynamic contact form.
