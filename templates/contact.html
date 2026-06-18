@@ -1,51 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-    <body>
-        {% include "header.html" %}
-        {# Import Flask-Bootstrap macro for rapid form generation #}
-        {% from 'bootstrap5/form.html' import render_form %}
+{#
+    Contact Page Template
+    Provides a contact form for user communication.
+    Uses bootstrap-flask render_form for secure, styled input handling.
+#}
+{% include "header.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
 
-        {# Contact Header #}
-        <header class="masthead" style="background-image: url('../static/assets/img/contact-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="page-heading">
-
-                            {# Evaluates variables passed from the contact route to display status #}
-                            {% if success == "success" %}
-                                <h1>Successfully sent your message</h1>
-                            {% elif success == "error" %}
-                                <h1>Error</h1>
-                                <span class="subheading">Something went wrong while sending. Please try again.</span>
-                            {% else %}
-                                <h1>Contact Me</h1>
-                            {% endif %}
-
-                            <span class="subheading">Have questions? I have answers.</span>
-                        </div>
-                    </div>
+{# Dynamic background image path #}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/contact-bg.jpg') }}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading">
+                    <h1>Contact Me</h1>
+                    <span class="subheading">Have questions? I have answers.</span>
                 </div>
             </div>
-        </header>
+        </div>
+    </div>
+</header>
 
-        {# Contact Form Section #}
-        <main class="mb-4">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
-                        <div class="my-5">
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
 
-                            {# Automatically generates the standard WTForm with Bootstrap styling #}
-                            {{ render_form(form) }}
+                {# Success/Error Messaging #}
+                {% if success == "success" %}
+                    <div class="alert alert-success">Message sent successfully!</div>
+                {% elif success == "error" %}
+                    <div class="alert alert-danger">Error sending message. Please try again.</div>
+                {% endif %}
 
-                        </div>
-                    </div>
+                <div class="my-5">
+                    {# Corrected Bootstrap 5 form rendering #}
+                    {{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
                 </div>
             </div>
-        </main>
+        </div>
+    </div>
+</main>
 
-        {% include "footer.html" %}
-    </body>
-</html>
+{% include "footer.html" %}

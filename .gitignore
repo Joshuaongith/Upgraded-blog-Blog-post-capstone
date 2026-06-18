@@ -12,7 +12,5 @@ __pycache__/
 *.pyc
 *.pyo
 
-# OS & IDE Files
-.DS_Store
-.vscode/
+# PyCharm Settings
 .idea/

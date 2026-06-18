@@ -1,0 +1,84 @@
+{#
+    Admin Portal Template
+    Restricted to Super Admin (ID 1).
+    Provides administrative oversight of users and content.
+#}
+{% include "header.html" %}
+
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/home-bg.jpg') }}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Admin Portal</h1>
+                    <span class="subheading">System Management & Moderation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container px-4 px-lg-5 mb-5">
+    {# User Management Section #}
+    <h2 class="mt-5 mb-4">User Management</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Admin Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.id == 1 %}
+                        <span class="badge bg-primary">Principal Admin</span>
+                    {% else %}
+                        <a href="{{ url_for('admin_bp.toggle_admin', user_id=user.id) }}"
+                           class="btn btn-sm {% if user.is_admin %}btn-success{% else %}btn-secondary{% endif %}">
+                           {{ 'Moderator' if user.is_admin else 'Standard' }}
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user.id != 1 %}
+                        <a href="{{ url_for('admin_bp.delete_user', user_id=user.id) }}" class="btn btn-sm btn-danger">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# Content Moderation Section #}
+    <h2 class="mt-5 mb-4">Content Moderation</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in all_posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.author.name }}</td>
+                <td>{{ post.date }}</td>
+                <td>
+                    <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-sm btn-danger">Delete Post</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include "footer.html" %}

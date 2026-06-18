@@ -1,0 +1,28 @@
+{# Custom 403 Forbidden Error Template #}
+{% include "header.html" %}
+
+{# Dynamic background image path using url_for #}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/home-bg.jpg') }}')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>403 Forbidden</h1>
+          <span class="subheading">Access Denied.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container px-4 px-lg-5">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7 text-center mt-5 mb-5">
+      <h2>Oops! You aren't supposed to be here.</h2>
+      <p>You do not have the necessary permissions to view or edit this page.</p>
+      <a class="btn btn-primary text-uppercase mt-4" href="{{ url_for('get_all_posts') }}">Take Me Home</a>
+    </div>
+  </div>
+</div>
+
+{% include "footer.html" %}

@@ -1,53 +1,63 @@
+{#
+    Index Page Template
+    The central hub for all blog posts.
+    Handles dynamic post rendering and conditional UI logic for moderation.
+#}
 {% include "header.html" %}
 
-{# Hero Banner #}
-<header class="masthead" style="background-image: url('../static/assets/img/home-bg.jpg')">
-  <div class="container position-relative px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-7">
-        <div class="site-heading">
-          <h1>Joshua Uzochukwu</h1>
-          <span class="subheading">A Blog using the Clean Blog Theme by Bootstrap</span>
+{# Hero Section #}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/home-bg.jpg') }}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Joshua's Journal</h1>
+                    <span class="subheading">Engineering Insights & Technical Journeys</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
-{# Main Blog Feed Content #}
+{# Post Feed #}
 <div class="container px-4 px-lg-5">
-  <div class="row gx-4 gx-lg-5 justify-content-center">
-    <div class="col-md-10 col-lg-8 col-xl-7">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
 
-      {# Iterate through all database objects #}
-      {% for post in all_posts %}
-      <div class="post-preview">
-        <a href="{{ url_for('show_post', post_id=post.id) }}">
-          <h2 class="post-title">{{ post.title }}</h2>
-          <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-        </a>
-        <p class="post-meta">
-          Posted by <a href="#">{{post.author}}</a> on {{post.date}}
-          <a href="{{ url_for('delete_post', post_id=post.id) }}" class="text-danger ps-2">✘</a>
-        </p>
-      </div>
-      <hr class="my-4" />
-      {% endfor %}
+            {% for post in all_posts %}
+            <div class="post-preview">
+                <a href="{{ url_for('show_post', post_id=post.id) }}">
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+                </a>
+                <p class="post-meta">
+                    Posted by {{ post.author.name }} on {{ post.date }}
+                </p>
 
-      {# Create New Post Action Container #}
-      <div class="d-flex justify-content-end mb-4">
-        <a class="btn btn-primary float-right" href="{{ url_for('new_post') }}">Create New Post</a>
-      </div>
+                {# Conditional UI: Edit/Delete permissions #}
+                <div class="d-flex justify-content-start">
+                    {# Edit: Restricted to Author and Super Admin (ID 1) #}
+                    {% if current_user.is_authenticated and (current_user.id == post.author_id or current_user.id == 1) %}
+                        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-outline-primary btn-sm me-2">Edit Post</a>
+                    {% endif %}
 
-      {# Pager (Temporarily disabled until pagination is needed) #}
-      {#
-      <div class="d-flex justify-content-end mb-4">
-        <a class="btn btn-secondary text-uppercase" href="#!">Older Posts →</a>
-      </div>
-      #}
+                    {# Delete: Open to Author, Super Admin (ID 1), and Moderators (is_admin) #}
+                    {% if current_user.is_authenticated and (current_user.id == post.author_id or current_user.is_admin or current_user.id == 1) %}
+                        <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-outline-danger btn-sm">Delete Post</a>
+                    {% endif %}
+                </div>
+            </div>
+            <hr class="my-4" />
+            {% endfor %}
 
+            {# Call to Action for authenticated users #}
+            {% if current_user.is_authenticated %}
+            <div class="d-flex justify-content-end mb-4">
+                <a class="btn btn-primary text-uppercase" href="{{ url_for('add_new_post') }}">Create New Post →</a>
+            </div>
+            {% endif %}
+        </div>
     </div>
-  </div>
 </div>
 
 {% include "footer.html" %}

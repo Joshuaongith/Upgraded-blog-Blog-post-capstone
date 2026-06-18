@@ -1,57 +1,44 @@
-{% block content %}
+{#
+    Make Post Template
+    Handles both creating new posts and editing existing ones.
+    Uses CKEditor for rich text editing on the 'body' field.
+#}
 {% include "header.html" %}
 {% from 'bootstrap5/form.html' import render_form %}
 
-<header class="masthead" style="background-image: url('../static/assets/img/edit-bg.jpg')">
-  <div class="container position-relative px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-7">
-        <div class="page-heading">
-
-          {# Conditional rendering: Changes UI based on creation vs. editing state #}
-          {% if is_edit %}
-          <h1>Edit Post</h1>
-          <span class="subheading">{{ post_title }}</span>
-          {% else %}
-          <h1>New Post</h1>
-          <span class="subheading">You're going to make a great blog post!</span>
-          {% endif %}
-
+{# Header: Background changes based on context if needed, defaulting to edit-bg #}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/edit-bg.jpg') }}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading">
+                    {% if is_edit: %}
+                        <h1>Edit Post</h1>
+                    {% else: %}
+                        <h1>New Post</h1>
+                    {% endif %}
+                    <span class="subheading">Share your thoughts with the world.</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
 <main class="mb-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
 
-        {# Cancel Button Navigation #}
-        <div class="mb-4">
-            {% if is_edit %}
-            <a class="btn btn-secondary text-uppercase" href="{{ url_for('show_post', post_id=post_id) }}">← Cancel Edit</a>
-            {% else %}
-            <a class="btn btn-secondary text-uppercase" href="{{ url_for('home') }}">← Cancel New Post</a>
-            {% endif %}
+                {# Load CKEditor if installed #}
+                {{ ckeditor.load() }}
+                {{ ckeditor.config(name='body') }}
+
+                {# Render the form #}
+                {{ render_form(form, novalidate=True) }}
+
+            </div>
         </div>
-
-        {# Automatically generates the WTForm with Bootstrap styling #}
-        {{ render_form(form) }}
-
-        {# Injects the JavaScript to transform the standard textarea into a rich-text editor #}
-        {{ ckeditor.load() }}
-
-      </div>
     </div>
-  </div>
-
-  {# Disables the CKEditor 4.22.1 LTS security nag screen #}
-  <script>
-      CKEDITOR.config.versionCheck = false;
-  </script>
 </main>
 
 {% include "footer.html" %}
-{% endblock %}

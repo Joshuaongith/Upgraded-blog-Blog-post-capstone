@@ -1,63 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Joshua Uzochukwu's Portfolio and Journey" />
-        <meta name="author" content="Joshua Uzochukwu" />
-        <title>About Me - Joshua Uzochukwu</title>
-        <link rel="icon" type="image/x-icon" href="../static/assets/favicon.ico" />
+{# 
+    About Page Template
+    Personalized content for Joshua Uzochukwu.
+    Integrated with base layout headers and footers.
+#}
+{% include "header.html" %}
 
-        {# Core Dependencies #}
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-        <link href="../static/css/styles.css" rel="stylesheet" />
-
-        {# Inline CSS to replicate standard blue hyperlink styling #}
-        <style>
-            main p a {
-                color: #0645ad !important;
-                text-decoration: none !important;
-            }
-            main p a:hover {
-                text-decoration: underline !important;
-            }
-        </style>
-    </head>
-    <body>
-        {% include "header.html" %}
-
-        {# Biography Header #}
-        <header class="masthead" style="background-image: url('../static/assets/img/about-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="page-heading">
-                            <h1>Joshua Uzochukwu</h1>
-                            <span class="subheading">My journey so far.</span>
-                        </div>
-                    </div>
+{# Biography Header #}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/about-bg.jpg') }}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading">
+                    <h1>Joshua Uzochukwu</h1>
+                    <span class="subheading">My journey so far.</span>
                 </div>
             </div>
-        </header>
+        </div>
+    </div>
+</header>
 
-        {# Biography Content Text #}
-        <main class="mb-4">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p>My name is Joshua Uzochukwu, a recent Computer Engineering graduate (B.Eng, November 2025) from <a href="https://anu.edu.gh/" target="_blank">All Nations University</a>, with a deep commitment to continuous technical growth. Throughout my learning journey so far, I have acquired hands-on skills in backend software development, space systems technology, hardware configuration, and audio-visual production.</p>
-                        <p>In this current chapter of my career, I am focused on sharpening my skills in Python programming and the rapidly expanding field of artificial intelligence and automation. I recently secured a scholarship for the AI and Automation course (Hajime cohort) at <a href="https://tsacademyonline.com/ai-automation/" target="_blank">TS Academy</a>. Simultaneously, I am advancing through Dr. Angela Yu's "<a href="https://www.udemy.com/course/100-days-of-code/" target="_blank">100 Days of Code</a>" Python Pro Bootcamp. So far, my progression through the curriculum has covered foundational scripting, object-oriented programming, data scraping, web development, and building comprehensive backend systems, including fully functional RESTful APIs using Flask and SQLAlchemy. To consistently reinforce my algorithmic problem-solving abilities alongside project development, I am also actively working through the HackerRank 30 Days of Code challenge.</p>
-                        <p>My drive for tackling complex, real-world problems is deeply rooted in my university experience. During my time as a Student Coordinator and STEM Educator at the All Nations University Space Systems Technology Laboratory <a href="https://sstl.anuc.edu.gh/" target="_blank">(ANU-SSTL)</a>, I contributed significantly to the <a href="https://sstl.anuc.edu.gh/african-space-station-project/" target="_blank">African Space Station Project</a> and the STEM for Underserved Communities (STEM4U) initiative. STEM4U is a community outreach project focused on bridging the digital divide by introducing modern technologies to indigenous and unreached populations. For these outreaches, I provided operational support and taught students fundamental STEM concepts, such as amateur radio, telemetry, and signal processing, through hands-on practicals. My work in the lab also involved direct hardware and telemetry experience, including assisting with satellite monitoring, signal analysis, and deploying environmental monitoring tools like the Clarity device and Aeronet photometer.</p>
-                        <p>Subsequently, I represented All Nations University at two major industry events: the <a href="https://www.ghanaspaceconference.org/" target="_blank">Ghana Space Conference</a> in October 2025 and the 5th Arab and Africa Impact Cratering and Astrogeology Conference <a href="https://aicacv.org/" target="_blank">(AICAC V)</a> in November 2025, where I had the privilege of sharing updates and presenting the roadmap for the African Space Station Project.</p>
-                        <p>In addition to my engineering studies, I actively served in the ANU Media and ANFGC Main Campus Media teams. Managing signal flow, digital mixing consoles, and visual presentation software allowed me to build a strong, practical foundation in live audio engineering, digital streaming, photography, and video editing.</p>
-                        <p>I am enthusiastic about exploring new opportunities to apply my diverse, multidisciplinary engineering background in solving complex technical challenges.</p>
-                    </div>
+{# Biography Content Text #}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>My name is Joshua Uzochukwu, a recent Computer Engineering graduate (B.Eng, November 2025) from <a href="https://anu.edu.gh/" target="_blank" class="text-primary text-decoration-none">All Nations University</a>, with a deep commitment to continuous technical growth. Throughout my learning journey so far, I have acquired hands-on skills in backend software development, space systems technology, hardware configuration, and audio-visual production.</p>
+
+                <p>In this current chapter of my career, I am focused on sharpening my skills in Python programming and the rapidly expanding field of artificial intelligence and automation. I recently secured a scholarship for the AI and Automation course (Hajime cohort) at <a href="https://tsacademyonline.com/ai-automation/" target="_blank" class="text-primary text-decoration-none">TS Academy</a>. Simultaneously, I am advancing through Dr. Angela Yu's "<a href="https://www.udemy.com/course/100-days-of-code/" target="_blank" class="text-primary text-decoration-none">100 Days of Code</a>" Python Pro Bootcamp. So far, my progression through the curriculum has covered foundational scripting, object-oriented programming, data scraping, web development, and building comprehensive backend systems, including fully functional RESTful APIs using Flask and SQLAlchemy. To consistently reinforce my algorithmic problem-solving abilities alongside project development, I am also actively working through the HackerRank 30 Days of Code challenge.</p>
+
+                <p>My drive for tackling complex, real-world problems is deeply rooted in my university experience. During my time as a Student Coordinator and STEM Educator at the All Nations University Space Systems Technology Laboratory <a href="https://sstl.anuc.edu.gh/" target="_blank" class="text-primary text-decoration-none">(ANU-SSTL)</a>, I contributed significantly to the <a href="https://sstl.anuc.edu.gh/african-space-station-project/" target="_blank" class="text-primary text-decoration-none">African Space Station Project</a> and the STEM for Underserved Communities (STEM4U) initiative. STEM4U is a community outreach project focused on bridging the digital divide by introducing modern technologies to indigenous and unreached populations. For these outreaches, I provided operational support and taught students fundamental STEM concepts, such as amateur radio, telemetry, and signal processing, through hands-on practicals. My work in the lab also involved direct hardware and telemetry experience, including assisting with satellite monitoring, signal analysis, and deploying environmental monitoring tools like the Clarity device and Aeronet photometer.</p>
+
+                <p>Subsequently, I represented All Nations University at two major industry events: the <a href="https://www.ghanaspaceconference.org/" target="_blank" class="text-primary text-decoration-none">Ghana Space Conference</a> in October 2025 and the 5th Arab and Africa Impact Cratering and Astrogeology Conference <a href="https://aicacv.org/" target="_blank" class="text-primary text-decoration-none">(AICAC V)</a> in November 2025, where I had the privilege of sharing updates and presenting the roadmap for the African Space Station Project.</p>
+                
+                <p>In addition to my engineering studies, I actively served in the ANU Media and ANFGC Main Campus Media teams. Managing signal flow, digital mixing consoles, and visual presentation software allowed me to build a strong, practical foundation in live audio engineering, digital streaming, photography, and video editing.</p>
+                
+                <p>I am enthusiastic about exploring new opportunities to apply my diverse, multidisciplinary engineering background in solving complex technical challenges.</p>
+                
+                <div class="d-flex justify-content-center mt-5 mb-4">
+                    <a href="{{ url_for('contact') }}" class="btn btn-secondary text-uppercase">Contact Me</a>
                 </div>
             </div>
-        </main>
+        </div>
+    </div>
+</main>
 
-        {% include "footer.html" %}
-    </body>
-</html>
+{% include "footer.html" %}

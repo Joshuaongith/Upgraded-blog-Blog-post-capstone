@@ -1,9 +1,17 @@
+{#
+    FOOTER TEMPLATE
+    This file acts as the universal closing structure for all pages.
+    It ensures social links, copyright data, and JS dependencies are consistent.
+#}
+
+<!-- Footer Section: Includes the horizontal border-top for visual separation -->
 <footer class="border-top">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
 
-                {# Social Media Links Array #}
+                {# SOCIAL MEDIA LINKS ARRAY #}
+                {# Using FontAwesome stack icons for a professional, uniform look #}
                 <ul class="list-inline text-center">
                     <li class="list-inline-item">
                         <a href="https://x.com/JoshuaUzochukw8" target="_blank">
@@ -39,13 +47,25 @@
                     </li>
                 </ul>
 
-                {# Injects the current_year context processor variable #}
-                <div class="small text-center text-muted fst-italic">Copyright &copy; Joshua Uzochukwu {{ current_year }}</div>
+                {# COPYRIGHT BLOCK #}
+                {# The 'current_year' variable is pulled dynamically from main.py via context_processor #}
+                <div class="small text-center text-muted fst-italic">
+                    Copyright &copy; Joshua Uzochukwu {{ current_year }}
+                </div>
             </div>
         </div>
     </div>
 </footer>
 
-{# Core UI and Theme JavaScript #}
+{# JAVASCRIPT DEPENDENCIES #}
+{# Placed at the bottom to ensure the DOM is loaded before scripts execute #}
+
+<!-- Bootstrap 5 Bundle: Handles nav toggles, dropdowns, and alert dismissal -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom Theme Script: Contains your site's specific UI behavior logic -->
 <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+<!-- Closing structural tags for the document -->
+</body>
+</html>
