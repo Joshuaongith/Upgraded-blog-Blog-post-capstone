@@ -32,8 +32,23 @@ SMTP_SERVER = "smtp.gmail.com"
 PORT = 465
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "8BYkEfBA6O6donzWlSihBXox7C0sKR6b")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+
+# Force a fast failure if the secret key is missing in production to prevent insecure fallback
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+if not app.config['SECRET_KEY']:
+    raise ValueError("Critical Error: No SECRET_KEY set for Flask application. Check environment variables.")
+
+# Dynamically route the database connection
+# Defaults to a local SQLite file for development if no cloud DB_URL is provided
+db_url = os.environ.get("DB_URL", "sqlite:///posts.db")
+
+# SQLAlchemy 1.4+ strictly requires the 'postgresql://' scheme.
+# This safely patches legacy 'postgres://' connection strings provided by cloud hosts like Supabase or Render.
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+
 
 # Inject global utilities into the Jinja context
 app.jinja_env.globals.update(gravatar_url=gravatar_url)
