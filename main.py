@@ -3,6 +3,7 @@ Blog Application Orchestrator
 Core system coordinating configurations, table schemas, relationships, and endpoints.
 """
 import os
+import time
 import smtplib
 import bleach
 from datetime import datetime
@@ -64,9 +65,29 @@ Bootstrap5(app)
 # upon application startup. This is an idempotent operation that safely
 # creates missing tables in the production environment if they do not exist.
 # -------------------------------------------------------------------------
+# --- Database Initialization & Resilience ---
 with app.app_context():
-    db.create_all()
-    print("Database schema synchronization complete.")
+    MAX_RETRIES = 5
+    RETRY_DELAY_SECONDS = 3
+
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            # Attempt to synchronize the SQLAlchemy ORM with the database schema
+            db.create_all()
+            print("🟢 Database schema synchronization complete.")
+            break  # Exit the retry loop upon successful connection
+
+        except Exception as e:
+            print(
+                f"⚠️ Database connection attempt {attempt}/{MAX_RETRIES} failed. Awaiting serverless instance wake-up...")
+
+            if attempt < MAX_RETRIES:
+                # Pause execution before the next polling cycle
+                time.sleep(RETRY_DELAY_SECONDS)
+            else:
+                # Failsafe: Allows the application server to boot even if the external DB is completely offline
+                print(
+                    f"🔴 CRITICAL: Database unreachable after {MAX_RETRIES} attempts. Boot sequence continuing without DB confirmation. Error: {e}")
 
 # Register Sub-Modules
 app.register_blueprint(admin_bp)
