@@ -58,6 +58,16 @@ db.init_app(app)
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
+# -------------------------------------------------------------------------
+# DATABASE SCHEMA INITIALIZATION
+# Ensures the relational schema is synchronized with the model definitions
+# upon application startup. This is an idempotent operation that safely
+# creates missing tables in the production environment if they do not exist.
+# -------------------------------------------------------------------------
+with app.app_context():
+    db.create_all()
+    print("Database schema synchronization complete.")
+
 # Register Sub-Modules
 app.register_blueprint(admin_bp)
 
