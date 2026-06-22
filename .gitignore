@@ -13,4 +13,4 @@ __pycache__/
 *.pyo
 
 # PyCharm Settings
-.idea/
+.idea
