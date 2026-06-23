@@ -1,14 +1,17 @@
 # 🚀 Full-Stack Flask Blog & Community Platform
 
+🌍 **Live Demo:** [View the Live Website on Render](https://upgraded-blog-blog-post-capstone.onrender.com/)
+
 A robust, fully functional multi-user blog application built with Python and Flask. Originally a personal portfolio, this project has been scaled into a community platform featuring a complete CRUD content management system, role-based access control, secure user authentication, interactive commenting, and a dynamic contact form.
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 
 ## ✨ Key Features
 
+* **Cloud Infrastructure:** Fully deployed on **Render** with a serverless **PostgreSQL** database hosted by **Neon**, featuring custom retry logic to handle cold starts gracefully.
 * **User Authentication & Authorization:** Secure registration and login system utilizing **Werkzeug** for password hashing and **Flask-Login** for session management.
 * **Role-Based Access Control (RBAC):** Tiered permissions separating Super Admins, Moderators, Authors, and standard Users, dictating who can create, edit, or delete specific posts and comments.
 * **Relational Database Architecture:** Engineered using SQLAlchemy ORM with bi-directional One-to-Many relationships mapping Users to Posts, Users to Comments, and Posts to Comments, fully utilizing cascading deletes.
@@ -25,7 +28,7 @@ A robust, fully functional multi-user blog application built with Python and Fla
 ## 🛠️ Technologies Used
 
 * **Backend:** Python 3, Flask, Flask-Login
-* **Database:** SQLite, SQLAlchemy (ORM)
+* **Database:** PostgreSQL (Production via Neon), SQLite (Local Testing), SQLAlchemy (ORM)
 * **Frontend:** HTML5, CSS3, JavaScript (Vanilla), Jinja2, Bootstrap 5, bootstrap-flask
 * **Security & Utilities:** Werkzeug (Cryptography), Flask-WTF (Form Handling), Bleach (Sanitization), Python-dotenv, smtplib
 
@@ -43,7 +46,7 @@ A robust, fully functional multi-user blog application built with Python and Fla
 ├── models.py            # SQLAlchemy database schemas
 ├── utils.py             # Utility functions and helpers
 ├── instance/
-│   └── posts.db         # SQLite Database
+│   └── posts.db         # SQLite Database (Local Dev Only)
 ├── static/
 │   ├── assets/          # Images and favicon
 │   ├── css/             # Stylesheets
@@ -99,10 +102,11 @@ SECRET_KEY=your_secure_random_key
 MY_EMAIL=your_sending_email@gmail.com
 MY_PASSWORD=your_app_password
 RECEIVER_EMAIL=your_receiving_email@gmail.com
+DB_URL=sqlite:///posts.db 
 
 ```
 
-*Note: If using Gmail, you must generate an [App Password](https://support.google.com/accounts/answer/185833?hl=en) to use as `MY_PASSWORD`.*
+*Note: To connect to a live database instead of local SQLite, replace the `DB_URL` value with your PostgreSQL connection string. If using Gmail for contact forms, you must generate an [App Password](https://support.google.com/accounts/answer/185833?hl=en) to use as `MY_PASSWORD`.*
 
 ### 5. Run the Application
 
@@ -111,7 +115,7 @@ python main.py
 
 ```
 
-The server will start on `http://127.0.0.1:5000/`. The SQLite database (`posts.db`) and all relational tables will automatically generate inside the `instance` folder upon the first run.
+The server will start on `http://127.0.0.1:5000/`. If using the local SQLite setup, the database (`posts.db`) and all relational tables will automatically generate inside the `instance` folder upon the first run.
 
 ### 6. 🧪 Optional: Inject Sample Data
 
@@ -152,7 +156,7 @@ with app.app_context():
     db.session.add(sample_comment)
     db.session.commit()
 
-    print("✅ Sample data successfully injected into posts.db!")
+    print("✅ Sample data successfully injected!")
 
 ```
 
@@ -168,8 +172,8 @@ This project was brought to life with the combination of excellent educational r
 
 * **Tools & Development**
 * **IDE:** Entirely coded, built, and debugged using PyCharm by JetBrains.
-* **AI Pair Programming:** Architecture brainstorming, security hardening (including anti-enumeration and Bleach sanitization), UI/UX standardization, and advanced code documentation were assisted by Google Gemini, acting as a virtual senior engineering mentor.
-* **Tech Stack:** Powered by Python, Flask, SQLAlchemy, Werkzeug, Flask-Login, and Bootstrap-Flask.
+* **AI Pair Programming:** Architecture brainstorming, security hardening (including anti-enumeration and Bleach sanitization), UI/UX standardization, cloud deployment infrastructure, and advanced code documentation were assisted by Google Gemini, acting as a virtual senior engineering mentor.
+* **Tech Stack:** Powered by Python, Flask, SQLAlchemy, Werkzeug, Flask-Login, Bootstrap-Flask, and Neon Serverless Postgres.
 
 
 
