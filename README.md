@@ -13,7 +13,12 @@ A robust, fully functional multi-user blog application built with Python and Fla
 
 * **Cloud Infrastructure:** Fully deployed on **Render** with a serverless **PostgreSQL** database hosted by **Neon**, featuring custom retry logic to handle cold starts gracefully.
 * **User Authentication & Authorization:** Secure registration and login system utilizing **Werkzeug** for password hashing and **Flask-Login** for session management.
-* **Role-Based Access Control (RBAC):** Tiered permissions separating Super Admins, Moderators, Authors, and standard Users, dictating who can create, edit, or delete specific posts and comments.
+* **Role-Based Access Control (RBAC):** A strict hierarchy governing user permissions:
+  * **Super Admin (ID 1):** Full root access. The only role with access to the Admin Portal to promote users to Moderators or permanently delete accounts.
+  * **Moderator (`is_admin=True`):** Elevated privileges allowing them to delete any user comment or blog post to maintain community standards.
+  * **Author:** Any logged-in user who creates a post. They have exclusive rights to edit or delete their own posts and comments.
+  * **Standard User:** Any registered user. They can read all content and leave comments.
+  * **Guest:** Unregistered visitors who can only view posts and comments.
 * **Relational Database Architecture:** Engineered using SQLAlchemy ORM with bi-directional One-to-Many relationships mapping Users to Posts, Users to Comments, and Posts to Comments, fully utilizing cascading deletes.
 * **Interactive Community Features:**
   * Rich-text commenting system hidden behind a smooth JavaScript UI toggle.
