@@ -172,14 +172,12 @@ Run the script using: `python seed_data.py`. You can now log in using `admin@tes
 This project was brought to life with the combination of excellent educational resources, powerful tools, and modern frameworks.
 
 * **Curriculum & Foundation**
-* **Udemy:** The core project concept, starting HTML/CSS templates, and foundational architecture were provided as part of Dr. Angela Yu's *100 Days of Code: The Complete Python Pro Bootcamp*. The multi-user database relations, role-based access control, security hardening, and interactive community features were custom-built to expand significantly upon the original curriculum.
-
+  * **Udemy:** The core project concept, starting HTML/CSS templates, and foundational architecture were provided as part of Dr. Angela Yu's *100 Days of Code: The Complete Python Pro Bootcamp*. The multi-user database relations, role-based access control, security hardening, and interactive community features were custom-built to expand significantly upon the original curriculum.
 
 * **Tools & Development**
-* **IDE:** Entirely coded, built, and debugged using PyCharm by JetBrains.
-* **AI Pair Programming:** Architecture brainstorming, security hardening (including anti-enumeration and Bleach sanitization), UI/UX standardization, cloud deployment infrastructure, and advanced code documentation were assisted by Google Gemini, acting as a virtual senior engineering mentor.
-* **Tech Stack:** Powered by Python, Flask, SQLAlchemy, Werkzeug, Flask-Login, Bootstrap-Flask, and Neon Serverless Postgres.
-
+  * **IDE:** Entirely coded, built, and debugged using PyCharm by JetBrains.
+  * **AI Pair Programming:** Architecture brainstorming, security hardening (including anti-enumeration and Bleach sanitization), UI/UX standardization, cloud deployment infrastructure, and advanced code documentation were assisted by Google Gemini, acting as a virtual senior engineering mentor.
+  * **Tech Stack:** Powered by Python, Flask, SQLAlchemy, Werkzeug, Flask-Login, Bootstrap-Flask, and Neon Serverless Postgres.
 
 
 ## 👨‍💻 Author
